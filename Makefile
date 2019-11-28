@@ -7,8 +7,18 @@ build-workdir:
 	bash -c "source venv/bin/activate; \
 			pip install -e .;"
 
+db-cli:
+	psql -h localhost -p 5000 -U user -d doctorCRM
+
+django-commit:
+	bash -c "source venv/bin/activate; \
+			cd src; \
+			python3 manage.py migrate;"
+
 start-db:
 	sudo docker-compose up -d --force-recreate
 
-db-cli:
-	psql -h localhost -p 5000 -U user -d doctorCRM
+start-app:
+	bash -c "source venv/bin/activate; \
+			cd src; \
+			python3 manage.py runserver;"
