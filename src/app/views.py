@@ -1,4 +1,10 @@
-from django.http import HttpResponse
+from django.shortcuts import render
+
+from .models import Doctor
+
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    doctor = Doctor.objects.order_by('-name')[0]
+    print(doctor.name)
+    context = {'doctor': doctor}
+    return render(request, 'html/index.html', context)
