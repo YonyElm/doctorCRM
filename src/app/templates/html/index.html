@@ -2,11 +2,18 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Dr.CRM Application</title>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     </head>
 
     <body>
-        My Name is: {{ doctor.name }}
+        <h1>My Name is: {{ patient.name }}</h1>
+        <div id="div1"></div>
     </body>
-
+    <script>
+        var doctorName = '{{ doctor.name }}';
+    </script>
+    <script src="{% static 'js/main.js' %}"></script>
 </html>
