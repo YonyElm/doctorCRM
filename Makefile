@@ -15,10 +15,18 @@ django-commit:
 			cd src; \
 			python3 manage.py migrate;"
 
-start-db:
-	sudo docker-compose up -d --force-recreate
-
 start-app:
 	bash -c "source venv/bin/activate; \
 			cd src; \
 			python3 manage.py runserver;"
+
+### Postgres DB
+
+start-db:
+	sudo docker-compose up -d --force-recreate
+
+db-cli:
+	psql -h localhost -p 5000 -U user -d doctorCRM
+
+load-example-db:
+	./etc/db-example/postgres-to-csv.sh
