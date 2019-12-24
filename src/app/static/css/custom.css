@@ -1,4 +1,4 @@
-/******************************************
+fz/******************************************
     File Name: custom.css
 /****************************************** */
 
@@ -61,7 +61,7 @@ header {
     float: left;
     width: 100%;
     position: fixed;
-    z-index: 5;
+    z-index: 20;
     background: #fff;
     box-shadow: 0 20px 40px -40px #000;
     top: 0;
