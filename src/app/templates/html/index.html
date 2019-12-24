@@ -25,8 +25,6 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
       <!-- Site CSS -->
       <link rel="stylesheet" href="{% static 'css/style.css' %}">
-      <!-- Colors CSS -->
-      <link rel="stylesheet" href="{% static 'css/colors.css' %}">
       <!-- ALL VERSION CSS -->
       <link rel="stylesheet" href="{% static 'css/versions.css' %}">
       <!-- Responsive CSS -->''
@@ -43,7 +41,7 @@
          <img class="preloader" src="{% static 'images/loaders/heart-loading2.gif' %}" alt="">
       </div>
       <!-- END LOADER -->
-      <header>
+      <header class="header-top wow fadeIn">
          <div class="header-top wow fadeIn">
             <div class="container">
                <a class="navbar-brand" href="index.html"><img src="{% static 'images/logo.png' %}" alt="image"></a>
@@ -80,7 +78,7 @@
                         <li><a data-scroll href="#doctors">Doctors</a></li>
                         <li><a data-scroll href="#price">Price</a></li>
 						<li><a data-scroll href="#testimonials">Testimonials</a></li>
-                        <li><a data-scroll href="#getintouch">Contact</a></li>
+                        <li><a data-scroll href="#contact">Contact</a></li>
                      </ul>
                   </div>
                </nav>
@@ -106,9 +104,6 @@
                   <div class="text-contant">
                      <h2>
                         <span class="center"><span class="icon"><img src="{% static 'images/icon-logo.png' %}" alt="#" /></span></span>
-                        <a href="" class="typewrite" data-period="2000" data-type='[ "Welcome to Life Care", "We Care Your Health", "We are Expert!" ]'>
-                        <span class="wrap"></span>
-                        </a>
                      </h2>
                   </div>
                </div>
@@ -356,14 +351,14 @@
 	  <!-- doctor -->
 	  
 	  <div id="doctors" class="parallax section db" data-stellar-background-ratio="0.4" style="background:#fff;" data-scroll-id="doctors" tabindex="-1">
-        <div class="container">
-		
-		<div class="heading">
-               <span class="icon-logo"><img src="{% static 'images/icon-logo.png' %}" alt="#"></span>
-               <h2>The Specialist Clinic</h2>
-            </div>
+         <div class="container">
 
-            <div class="row dev-list text-center">
+             <div class="heading">
+                <span class="icon-logo"><img src="{% static 'images/icon-logo.png' %}" alt="#"></span>
+                <h2>The Specialist Clinic</h2>
+             </div>
+
+             <div class="row dev-list text-center">
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s" style="visibility: visible; animation-duration: 1s; animation-delay: 0.2s; animation-name: fadeIn;">
                     <div class="widget clearfix">
                         <img src="{% static 'images/doctor_01.jpg' %}" alt="" class="img-responsive img-rounded">
@@ -403,27 +398,26 @@
                 </div><!-- end col -->
 
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 wow fadeIn">
-                    <div class="widget clearfix">
-                        <img src="{% static 'images/doctor_03.jpg' %}" alt="" class="img-responsive img-rounded">
-                        <div class="widget-title">
-                            <h3>Matthew Bayliss</h3>
-                            <small>Orthopedics Expert</small>
-                        </div>
-                        <!-- end title -->
-                        <p>Hello guys, I am Soren from Sirbistana. I am senior art director and founder of Violetta.</p>
+                   <div class="widget clearfix">
+                      <img src="{% static 'images/doctor_03.jpg' %}" alt="" class="img-responsive img-rounded">
+                      <div class="widget-title">
+                         <h3>Matthew Bayliss</h3>
+                         <small>Orthopedics Expert</small>
+                      </div>
+                      <!-- end title -->
+                      <p>Hello guys, I am Soren from Sirbistana. I am senior art director and founder of Violetta.</p>
 
-                        <div class="footer-social">
-                            <a href="#" class="btn grd1"><i class="fa fa-facebook"></i></a>
-                            <a href="#" class="btn grd1"><i class="fa fa-github"></i></a>
-                            <a href="#" class="btn grd1"><i class="fa fa-twitter"></i></a>
-                            <a href="#" class="btn grd1"><i class="fa fa-linkedin"></i></a>
-                        </div>
-                    </div><!--widget -->
+                      <div class="footer-social">
+                         <a href="#" class="btn grd1"><i class="fa fa-facebook"></i></a>
+                         <a href="#" class="btn grd1"><i class="fa fa-github"></i></a>
+                         <a href="#" class="btn grd1"><i class="fa fa-twitter"></i></a>
+                         <a href="#" class="btn grd1"><i class="fa fa-linkedin"></i></a>
+                      </div>
+                   </div><!--widget -->
                 </div><!-- end col -->
-
-            </div><!-- end row -->
-        </div><!-- end container -->
-    </div>
+             </div><!-- end row -->
+         </div><!-- end container -->
+      </div>
 	  
 	  <div id="price" class="section pr wow fadeIn" style="background-image:url({% static 'images/price-bg.png' %});">
          <div class="container">
@@ -550,7 +544,6 @@
       </div>
 	  
 	  <!-- end doctor section -->
-	  
       <div id="testimonials" class="section wb wow fadeIn">
          <div class="container">
             <div class="heading">
@@ -628,8 +621,9 @@
          </div>
          <!-- end container -->
       </div>
+
       <!-- end section -->
-      <div id="getintouch" class="section wb wow fadeIn" style="padding-bottom:0;">
+      <div id="contact" class="section wb wow fadeIn" style="padding-bottom:0;">
          <div class="container">
             <div class="heading">
                <span class="icon-logo"><img src="{% static 'images/icon-logo.png' %}" alt="#"></span>
@@ -673,6 +667,7 @@
             </div>
          </div>
       </div>
+
       <footer id="footer" class="footer-area wow fadeIn">
          <div class="container">
             <div class="row">
@@ -718,6 +713,7 @@
             </div>
          </div>
       </footer>
+
       <div class="copyright-area wow fadeIn">
          <div class="container">
             <div class="row">
@@ -741,7 +737,8 @@
             </div>
          </div>
       </div>
-      <!-- end copyrights -->
+
+      <!-- round button scroll to the top -->
       <a href="#home" data-scroll class="dmtop global-radius"><i class="fa fa-angle-up"></i></a>
 
       <!-- JQuery -->
@@ -755,9 +752,6 @@
       <!-- PrettyPhoto v3.1.6, Includes CSS + images -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/prettyPhoto/3.1.6/js/jquery.prettyPhoto.min.js"></script>
       <!-- all js files -->
-      <script src="{% static 'js/all.js' %}"></script>
-      <!-- all plugins -->
-      <script src="{% static 'js/custom.js' %}"></script>
-
+      <script src="{% static 'js/main.js' %}"></script>
    </body>
 </html>
