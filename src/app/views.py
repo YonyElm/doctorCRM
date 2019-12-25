@@ -5,8 +5,11 @@ from .models import Patient
 
 
 def index(request):
-    doctor = Doctor.objects.order_by('-name')[0]
-    patient = Patient.objects.order_by('-name')[0]
-    context = {'doctor': doctor,
-               'patient': patient}
-    return render(request, 'html/index.html', context)
+    return render(request, 'html/index.html', {})
+
+def logic(request):
+    doctors_arr = Doctor.objects.order_by('-name')
+    patients_arr = Patient.objects.order_by('-name')
+    context = {'doctors': doctors_arr,
+               'patients': patients_arr}
+    return render(request, 'html/logic.html', context)
