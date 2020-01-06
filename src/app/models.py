@@ -9,7 +9,6 @@ class Doctor(models.Model):
         (GENERAL, 'General'),
         (CARDIOLOGIST, 'Cardiologist')
     ]
-    # field name `id` will be added automatically as prime-key
     name = models.CharField(max_length=30)
     surname = models.CharField(max_length=30)
     expertise = models.CharField(max_length=30, choices=EXPERTISE, default=GENERAL)
@@ -18,7 +17,6 @@ class Doctor(models.Model):
     email = models.EmailField()
 
 class Patient(models.Model):
-    # field name `id` will be added automatically as prime-key
     name = models.CharField(max_length=30, verbose_name='Patient First Name')
     surname = models.CharField(max_length=30, verbose_name='Patient Last Name')
     id_num = models.IntegerField(unique=True, verbose_name='ID Number', primary_key=True, default=0)
@@ -28,7 +26,6 @@ class Patient(models.Model):
     reg_date = models.DateTimeField(verbose_name='Registration Date', null=True)
 
 class Test(models.Model):
-    # field name `id` will be added automatically as prime-key
     name = models.CharField(max_length=30)
     code = models.IntegerField(unique=True, verbose_name='Test Code', primary_key=True, default=0)
 

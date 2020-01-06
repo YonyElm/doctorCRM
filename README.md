@@ -22,7 +22,7 @@ Dr.CRM is patient management sample, helping you following up with treatments gi
     * `make load-example-db`
 6. Open the browser with address `localhost:8000`
 
-## Deceision making
+## Decision making
 
 1. Why Python?
     1. Python was chosen based on a fact that its an easy language to work with.
