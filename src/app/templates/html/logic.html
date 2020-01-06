@@ -34,24 +34,46 @@
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     <!-- Modernizer for Portfolio -->
     <script src="{% static 'js/modernizer.js' %}"></script>
-    <!-- [if lt IE 9] -->
+    <!-- Import the React, React-Dom and Babel libraries from unpkg -->
+    <script type="application/javascript" src="https://unpkg.com/react@16.0.0/umd/react.production.min.js"></script>
+    <script type="application/javascript" src="https://unpkg.com/react-dom@16.0.0/umd/react-dom.production.min.js"></script>
+    <script type="application/javascript" src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
 </head>
 <body class="clinic_version">
-<!-- LOADER -->
-<div id="preloader">
-    <img class="preloader" src="{% static 'images/loaders/heart-loading2.gif' %}" alt="">
-</div>
+    <!-- LOADER -->
+    <div id="preloader">
+        <img class="preloader" src="{% static 'images/loaders/heart-loading2.gif' %}" alt="">
+    </div>
 
-<!-- Website content-->
-{% for doctor in doctors %}
-    <h1>Doctor: {{ doctor.name }}</h1>
-{% endfor %}
+    <!-- Website content-->
+    <table>
+        <tr>
+            <td>Name</td>
+            <td>Surname</td>
+            <td>Expertise</td>
+            <td>License Number</td>
+            <td>Phone Number</td>
+            <td>E-Mail</td>
+        </tr>
+    {% for doctor in doctors %}
+        <tr>
+            <td>{{ doctor.name }}</td>
+            <td>{{ doctor.surname }}</td>
+            <td>{{ doctor.expertise }}</td>
+            <td>{{ doctor.license_num }}</td>
+            <td>{{ doctor.phone }}</td>
+            <td>{{ doctor.email }}</td>
+        </tr>
+    {% endfor %}
+    </table>
 
-{% for patient in patients %}
-    <h3>Patient: {{patient.name}}</h3>
-{% endfor %}
+    {% for patient in patients %}
+        <h3>Patient: {{patient.name}}</h3>
+    {% endfor %}
 
+    <div id="root"></div>
 </body>
+
 <script>
     var doctorName = '{{ doctor.name }}';
 </script>
@@ -69,6 +91,7 @@
 <!-- Style js files -->
 <script src="{% static 'js/style.js' %}"></script>
 <!-- index JS -->
-<script src="{% static 'js/index.js' %}"></script>
+<script>var content = JSON.parse('{{ all | escapejs }}');</script>
+<script src="{% static 'js/index.js' %}" type='text/babel'></script>
 </body>
 </html>

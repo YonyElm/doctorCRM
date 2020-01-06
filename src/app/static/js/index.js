@@ -1,12 +1,29 @@
+// Obtain the root 
+const rootElement = document.getElementById('root')
 
-if (typeof(doctorName) == "undefined"){
-    var doctorName = "No"
+// Create a ES6 class component
+class MyTag extends React.Component {
+// Use the render function to return JSX component      
+    render() {
+        return (
+            <div>
+                <h1>List for {this.props.name}</h1>
+                <ul>
+                    <li>Niddle</li>
+                    <li>Banded</li>
+                </ul>
+            </div>
+        );
+    }
 }
 
-let p = document.createElement("p");
-let text = document.createTextNode("Doctor name JS: " + doctorName);
-p.appendChild(text)
+// Create a function to wrap up your component
+function App(){
+    return(
+        <MyTag name="Doctor"/>
+    )
+}
 
-let div1 = document.getElementById("div1");
-if (div1 != null)
-    div1.appendChild(p);
+
+// Use the ReactDOM.render to show your component on the browser
+ReactDOM.render(App(), rootElement)
