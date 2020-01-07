@@ -14,8 +14,9 @@ setuptools.setup(
     url="https://github.com/pypa/sampleproject",
     packages=setuptools.find_packages(),
     install_requires=[
-        "Django",
-        "psycopg2"
+        "Django",   # Django framework
+        "psycopg2", # Postgres SQL lib
+        "uwsgi",    # Web Server Gateway Interface library
     ],
     classifiers=[
         "Programming Language :: Python :: 3",

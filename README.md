@@ -12,27 +12,32 @@ Dr.CRM is patient management sample, helping you following up with treatments gi
 1. Build working environment:
     * `make build-workdir`
     * `source venv/bin/activate`
-2. Create a Django admin user for the website:
+1. Create a Django admin user for the website:
     * `python src/manage.py createsuperuser`
-3. Start Postgres DB:
+1. Start Postgres DB:
     * `make start-db`
-4. Run application:
+1. Run application:
     * `make start-app`
-5. Load DB example to get things going faster
+1. Load DB example to get things going faster
     * `make load-example-db`
-6. Open the browser with address `localhost:8000`
+1. Open the browser with address `localhost:8000`
 
 ## Decision making
 
+1. Why NGINX?
+    1. Web server I worked with before
+    1. Taking unnecessary load from Django when serving static files, and increase performance in production
+1. Why uSWGI?
+    1. Naively supported by NGINX
 1. Why Python?
     1. Python was chosen based on a fact that its an easy language to work with.
-2. Why Django framework?
+1. Why Django framework?
     1. Django is a Python framework for Web Development.
-3. Why PostgresSQL?
+1. Why PostgresSQL?
     1. PostgresSQL is one of the DB officially supported by Django framework
 
 ---
 
-##### Credits
-###### CSS
+### Credits
+#### CSS
 https://www.free-css.com/free-css-templates/page245/life-care
