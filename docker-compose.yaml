@@ -11,3 +11,12 @@ services:
       - "5000:5432"
     volumes:
       - ./postgres-db:/var/lib/postgresql/data
+
+  # Not used during development
+  nginx:
+    image: nginx:1.17
+    container_name: nginx
+    network_mode: host
+    volumes:
+    - ./src/app/static:/app/static/
+    - ./src/nginx.conf:/etc/nginx/nginx.conf

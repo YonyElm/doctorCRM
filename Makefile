@@ -7,31 +7,28 @@ build-workdir:
 	bash -c "source venv/bin/activate; \
 			pip install -e .;"
 
-db-cli:
-	psql -h localhost -p 5000 -U user -d doctorCRM
-
 django-commit:
 	bash -c "source venv/bin/activate; \
 			cd src; \
 			python3 manage.py migrate;"
 
-start-django:
+start-django: start-db
 	bash -c "source venv/bin/activate; \
 			cd src; \
 			python3 manage.py runserver;"
 
 # Deprecated will be used inside Docker container
 start-nginx:
-	sudo cp src/project_nginx.conf /etc/nginx/sites-enabled/
-	sudo /etc/init.d/nginx restart
+	sudo docker-compose up -d --force-recreate
 	bash -c "source venv/bin/activate; \
 			cd src; \
-			uwsgi --socket :8000 --module project.wsgi;"
+			uwsgi --socket :8001 --module project.wsgi;"
 
 ### Postgres DB
 
 start-db:
 	sudo docker-compose up -d --force-recreate
+	sudo docker stop nginx
 
 db-cli:
 	psql -h localhost -p 5000 -U user -d doctorCRM
