@@ -10,14 +10,14 @@ Dr.CRM is patient management sample, helping you following up with treatments gi
 ## Getting started
 
 1. Build working environment:
+    * `make install-requirements`
     * `make build-workdir`
     * `source venv/bin/activate`
+    * `python src/manage.py migrate`
+1. Start application:
+    * `make start-django`
 1. Create a Django admin user for the website:
     * `python src/manage.py createsuperuser`
-1. Start Postgres DB:
-    * `make start-db`
-1. Run application:
-    * `make start-app`
 1. Load DB example to get things going faster
     * `make load-example-db`
 1. Open the browser with address `localhost:8000`
@@ -39,5 +39,7 @@ Dr.CRM is patient management sample, helping you following up with treatments gi
 ---
 
 ### Credits
+
 #### CSS
+
 https://www.free-css.com/free-css-templates/page245/life-care
