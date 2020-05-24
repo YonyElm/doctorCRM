@@ -13,6 +13,7 @@ Dr.CRM is patient management sample, helping you following up with treatments gi
     * `make install-requirements`
     * `make build-workdir`
     * `source venv/bin/activate`
+    * `make start-db`
     * `python src/manage.py migrate`
 1. Start application:
     * `make start-django`

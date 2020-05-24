@@ -1,6 +1,7 @@
 # Step 1
 install-requirements:
-	sudo apt install -y python3-pip python3-dev libpq-dev postgresql-10 nginx
+	sudo apt install -y python3-pip python3-dev libpq-dev
+	# sudo apt install -y nginx postgresql-10
 	sudo python3 -m pip install virtualenv
 
 # Step 2
