@@ -16,6 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+handler404 = 'app.views.handler404'
+handler400 = 'app.views.handler400'
+#handler500 = 'my_app.views.handler500'
+
 urlpatterns = [
     path('', include('app.urls')), # No suffix to URL will lead to application
     path('admin/', admin.site.urls),
