@@ -4,8 +4,8 @@ Dr.CRM is patient management sample, helping you following up with treatments gi
 
 ## Requirements
 
-* PostgressSQL
-* Python > 3.6
+* PostgreSQL
+* Python > 3.5
 
 ## Getting started
 
@@ -36,7 +36,8 @@ Dr.CRM is patient management sample, helping you following up with treatments gi
     1. Django is a Python framework for Web Development.
 1. Why PostgresSQL?
     1. PostgresSQL is one of the DB officially supported by Django framework
-
+1. Why React?
+    1. Some pages holds information that can server different needs. These pages can introduce SPA elements to speed up process and ease on usage.
 ---
 
 ### Credits
