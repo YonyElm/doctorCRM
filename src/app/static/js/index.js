@@ -20,7 +20,7 @@ class MyTag extends React.Component {
 // Create a function to wrap up your component
 function App(){
     return(
-        <MyTag name="Doctor"/>
+        <MyTag name={doctorName} />
     )
 }
 

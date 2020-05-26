@@ -89,13 +89,11 @@ def logic(request):
     return render(request, 'pages/logic.html', context)
 
 def handler404(request, exception, template_name="pages/404.html"):
-    #response = render_to_response(template_name)
-    response = render(request, 'pages/404.html', {})
+    response = render(request, template_name, {})
     response.status_code = 404
     return response
 
 def handler400(request, exception, template_name="pages/400.html"):
-    #response = render_to_response(template_name)
-    response = render(request, 'pages/405.html', {})
+    response = render(request, template_name, {})
     response.status_code = 400
     return response
