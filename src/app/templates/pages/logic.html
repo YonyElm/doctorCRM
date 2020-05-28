@@ -6,34 +6,10 @@
         {% include "inc/loader.html" %}
         {% include "inc/header.html" %}
         <div id="home" class="first-section">
-            <table>
-                <tr>
-                    <td>Name</td>
-                    <td>Surname</td>
-                    <td>ID Number</td>
-
-                    <td>Test Name</td>
-                    <td>Due Date</td>
-                    <td>Alert</td>
-                </tr>
-            {% for record in tracking %}
-                <tr>
-                    <td>{{ record.patient.name }}</td>
-                    <td>{{ record.patient.surname }}</td>
-                    <td>{{ record.patient.id_num }}</td>
-                    <td>{{ record.test.name }}</td>
-                    <td>{{ record.due_date }}</td>
-                    <td>{{ record.alert_code }}</td>
-                </tr>
-            {% endfor %}
-            </table>
-
-
             <div id="root"></div>
         </div>
 
         <script>
-            var doctorName = '{{ doctors.0.name }}';
             var content = JSON.parse('{{ all | escapejs }}');
         </script>
         
