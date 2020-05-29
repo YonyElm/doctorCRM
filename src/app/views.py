@@ -8,10 +8,14 @@ from .models import Patient
 from .models import Test
 from .models import TrackingChart
 
+
 def index(request):
+    """TBD."""
     return render(request, 'pages/index.html', {})
 
+
 def personal(request):
+    """TBD."""
     doctors_arr = Doctor.objects.all()
     doctors_json = serializers.serialize('json', doctors_arr)
     doctors_json = json.loads(doctors_json)
@@ -20,7 +24,7 @@ def personal(request):
         fields = element['fields']
         element.clear()
         element.update(fields)
-    #doctors_json = json.dumps(doctors_json)
+    # doctors_json = json.dumps(doctors_json)
 
     patients_arr = Patient.objects.all()
     patients_json = serializers.serialize('json', patients_arr)
@@ -30,9 +34,11 @@ def personal(request):
         fields = element['fields']
         element.clear()
         element.update(fields)
-    #patients_json = json.dumps(patients_json)
+    # patients_json = json.dumps(patients_json)
+
 
 def logic(request):
+    """TBD."""
     doctors_arr = Doctor.objects.all()
     doctors_json = serializers.serialize('json', doctors_arr)
     doctors_json = json.loads(doctors_json)
@@ -62,7 +68,8 @@ def logic(request):
         element.update(fields)
 
     # __lte = less then or equal
-    tracking_chart_arr = TrackingChart.objects.filter(due_date__lte=datetime.now()) 
+    tracking_chart_arr = TrackingChart.objects.filter(
+        due_date__lte=datetime.now())
     tracking_chart_json = serializers.serialize('json', tracking_chart_arr)
     tracking_chart_json = json.loads(tracking_chart_json)
     i = 0
@@ -70,11 +77,13 @@ def logic(request):
         fields = element['fields']
         element.clear()
         element.update(fields)
-        element['ordered_by'] = json.loads(serializers.serialize('json', [tracking_chart_arr[i].ordered_by]))[0]['fields']
-        element['patient'] = json.loads(serializers.serialize('json', [tracking_chart_arr[i].patient]))[0]['fields']
-        element['test'] = json.loads(serializers.serialize('json', [tracking_chart_arr[i].test]))[0]['fields']
-        i = i +1
-
+        element['ordered_by'] = json.loads(serializers.serialize(
+            'json', [tracking_chart_arr[i].ordered_by]))[0]['fields']
+        element['patient'] = json.loads(serializers.serialize(
+            'json', [tracking_chart_arr[i].patient]))[0]['fields']
+        element['test'] = json.loads(serializers.serialize(
+            'json', [tracking_chart_arr[i].test]))[0]['fields']
+        i = i + 1
 
     all = {}
     all['doctors'] = doctors_json
@@ -83,17 +92,22 @@ def logic(request):
     all['tracking_chart'] = tracking_chart_json
     all = json.dumps(all)
 
-    context = {'tracking_chart' : tracking_chart_json,
+    context = {
+        'tracking_chart': tracking_chart_json,
         'all': all}
 
     return render(request, 'pages/logic.html', context)
 
+
 def handler404(request, exception, template_name="pages/404.html"):
+    """TBD."""
     response = render(request, template_name, {})
     response.status_code = 404
     return response
 
+
 def handler400(request, exception, template_name="pages/400.html"):
+    """TBD."""
     response = render(request, template_name, {})
     response.status_code = 400
     return response
