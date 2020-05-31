@@ -7,13 +7,13 @@ class TableCRM extends React.Component {
     render() {
         
         var records = [];
-        for (var i = 0; i < content.tracking_chart.length; i++) {
-            records.push(   <tr><td>{content.tracking_chart[i].patient.name}</td>
-                            <td>{content.tracking_chart[i].patient.surname}</td>
-                            <td>{content.tracking_chart[i].patient.name}</td>
-                            <td>{content.tracking_chart[i].test.name}</td>
-                            <td>{content.tracking_chart[i].due_date}</td>
-                            <td>{content.tracking_chart[i].alert_code}</td></tr>);
+        for (var i = 0; i < content.length; i++) {
+            records.push(   <tr><td>{content[i].patient.name}</td>
+                            <td>{content[i].patient.surname}</td>
+                            <td>{content[i].patient.id_num}</td>
+                            <td>{content[i].test.name}</td>
+                            <td>{content[i].due_date}</td>
+                            <td>{content[i].alert_code}</td></tr>);
         }
 
         return (
