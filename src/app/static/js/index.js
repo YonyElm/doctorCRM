@@ -8,28 +8,33 @@ class TableCRM extends React.Component {
         
         var records = [];
         for (var i = 0; i < content.length; i++) {
-            records.push(   <tr><td>{content[i].patient.name}</td>
-                            <td>{content[i].patient.surname}</td>
-                            <td>{content[i].patient.id_num}</td>
-                            <td>{content[i].test.name}</td>
-                            <td>{content[i].due_date}</td>
-                            <td>{content[i].alert_code}</td></tr>);
+            records.push(   <tr>
+                                <td>{i}</td>
+                                <td>{content[i].patient.name}</td>
+                                <td>{content[i].patient.surname}</td>
+                                <td>{content[i].patient.id_num}</td>
+                                <td>{content[i].test.name}</td>
+                                <td>{content[i].due_date}</td>
+                                <td>{content[i].alert_code}</td>
+                            </tr>);
         }
 
         return (
-            <table>
-                <tr>
-                    <h3>{this.props.name}</h3>
-                </tr>
-                <tr>
-                    <td>Name</td>
-                    <td>Surname</td>
-                    <td>ID Number</td>
-                    <td>Test Name</td>
-                    <td>Due Date</td>
-                    <td>Alert</td>
-                </tr>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>{this.props.name}</th> {/*Prop given by App() function*/}
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>ID Number</th>
+                        <th>Test Name</th>
+                        <th>Due Date</th>
+                        <th>Alert</th>
+                    </tr>
+                </thead>
+                <tbody>
                     {records}
+                </tbody>
             </table>
         );
     }

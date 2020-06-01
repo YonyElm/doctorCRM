@@ -20,13 +20,17 @@ def model_serializer(model_arr, pk_id):
     i = 0
     for element in json_string:
         for field in element['fields']:
+            # In case filed contain an object, serialize that object
             if (model_arr[i].__dict__.get(field) is None):
+                # Get Object value by key in String type
                 nested_obj = getattr(model_arr[i], field)
                 nested_pk_id = nested_obj._meta.pk.name
                 element['fields'][field] = model_serializer(
                     [nested_obj], nested_pk_id)[0]
+        # When PK should go into the object
         if (pk_id):
             element['fields'][pk_id] = element['pk']
+        # Final updates to clear not relevant parts of the given object
         fields = element['fields']
         element.clear()
         element.update(fields)
