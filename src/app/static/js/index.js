@@ -20,10 +20,10 @@ class TableCRM extends React.Component {
         }
 
         return (
-            <table class="table table-striped">
+            <table id={this.props.name} class="table table-striped"> {/*Prop given by App() function*/}
                 <thead>
                     <tr>
-                        <th>{this.props.name}</th> {/*Prop given by App() function*/}
+                        <th>#</th> 
                         <th>Name</th>
                         <th>Surname</th>
                         <th>ID Number</th>
@@ -43,10 +43,24 @@ class TableCRM extends React.Component {
 // Create a function to wrap up your component
 function App(){
     return(
-        <TableCRM name="Table for CRM" />
+        <TableCRM name="recommendations_t" />
     )
 }
 
 
 // Use the ReactDOM.render to show your component on the browser
 ReactDOM.render(App(), rootElement)
+
+// Table modifications
+$(document).ready(function() {
+        $('#recommendations_t').DataTable({
+            // Layout: https://datatables.net/reference/option/dom
+            dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-md-4'i><'col-md-4'B><'col-md-4'p>>",
+            buttons: [
+                'excel',
+                'print'
+            ]
+        });
+    });

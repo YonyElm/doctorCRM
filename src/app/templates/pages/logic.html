@@ -9,14 +9,10 @@
             <div id="root" class="table-responsive container"></div>
         </div>
 
-        <script>
-            var content = JSON.parse('{{ recommendations  | escapejs }}');
-        </script>
-        
-        <script src="{% static 'js/index.js' %}" type='text/babel'></script>
 
+        <!-- Scripts located here at the bottom to ease on page load-->>
         <!-- JQuery -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <!-- Bootstrap -->
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
         <!-- Smooth Scrolling -->
@@ -27,5 +23,25 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/prettyPhoto/3.1.6/js/jquery.prettyPhoto.min.js"></script>
         <!-- Style js files -->
         <script src="{% static 'js/style.js' %}"></script>
+
+        <script>
+            var content = JSON.parse('{{ recommendations  | escapejs }}');
+        </script>
+
+        <!-- Basic Tables Management -->
+        <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+        <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet"/>
+        <!-- Tables Printing Buttons -->        
+        <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.flash.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+        <script src="{% static 'js/index.js' %}" type='text/babel'></script>
+
+
     </body>
 </html>

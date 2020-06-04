@@ -73,7 +73,9 @@ jQuery("a[data-rel^='prettyPhoto']").prettyPhoto({
        Website loading animation
     =============================================== */
 
-    $(window).load(function() {
+    /* https://stackoverflow.com/a/40252711
+    * JQuery 1.8 and older will use different function*/
+    $(window).on('load', function(){
         $("#preloader").fadeOut(600); // Loader Icon
         $(".preloader").fadeOut(600); // Green background
     });
