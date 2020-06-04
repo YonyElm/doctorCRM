@@ -53,11 +53,12 @@ ReactDOM.render(App(), rootElement)
 
 // Table modifications
 $(document).ready(function() {
-        $('#recommendations_t').DataTable({
+    $('#recommendations_t').DataTable({
             // Layout: https://datatables.net/reference/option/dom
             dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-md-4'i><'col-md-4'B><'col-md-4'p>>",
+            // https://datatables.net/extensions/buttons/
             buttons: [
                 'excel',
                 'print'
