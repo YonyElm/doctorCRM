@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core import serializers
 import json
 from datetime import datetime
@@ -45,11 +45,12 @@ def index(request):
 
 def personal(request):
     """TBD."""
-    doctors_arr = Doctor.objects.all()
-    patients_arr = Patient.objects.all()
+    return redirect(recommendations)
+    # doctors_arr = Doctor.objects.all()
+    # patients_arr = Patient.objects.all()
 
 
-def logic(request):
+def recommendations(request):
     """TBD."""
     # __lte = less then or equal
     recommendations_arr = TrackingChart.objects.filter(

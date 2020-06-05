@@ -4,6 +4,7 @@ from . import views
 
 # Specify URI and the function that app/views will return
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('logic', views.logic, name='logic'),
+    path('design/', views.index, name='index'),
+    path('', views.recommendations, name='recommendations'),
+    path('personal/', views.personal, name='personal'),
 ]
