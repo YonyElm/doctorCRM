@@ -12,7 +12,8 @@ services:
     volumes:
       - ./postgres-db:/var/lib/postgresql/data
 
-  #
+  # Redis chache
+  # Use `redis-cli --bigkeys` to seecached items
   redis:
     image: redis:6.0.4
     container_name: redis
