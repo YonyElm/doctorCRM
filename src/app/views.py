@@ -8,6 +8,11 @@ from .models import Patient
 from .models import Test
 from .models import TrackingChart
 
+from django.conf import settings
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
+from django.views.decorators.cache import cache_page 
+CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
+
 
 def model_serializer(model_arr, pk_id):
     """
@@ -37,7 +42,7 @@ def model_serializer(model_arr, pk_id):
         i = i + 1
     return json_string
 
-
+@cache_page(CACHE_TTL)
 def index(request):
     """TBD."""
     return render(request, 'pages/index.html', {})
@@ -49,7 +54,7 @@ def personal(request):
     # doctors_arr = Doctor.objects.all()
     # patients_arr = Patient.objects.all()
 
-
+@cache_page(CACHE_TTL)
 def recommendations(request):
     """TBD."""
     # __lte = less then or equal

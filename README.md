@@ -28,8 +28,11 @@ Dr.CRM is patient management sample, helping you following up with treatments gi
 1. Why NGINX?
     1. Web server I worked with before
     1. Taking unnecessary load from Django when serving static files, and increase performance in production
+    1. Serves load balancer
 1. Why uSWGI?
-    1. Naively supported by NGINX
+    1. Natively supported by NGINX
+1. Why Redis Cache?
+    1. To speed up page fetching by caching processed pages
 1. Why Python?
     1. Python was chosen based on a fact that its an easy language to work with.
 1. Why Django framework?

@@ -16,6 +16,7 @@ setuptools.setup(
     install_requires=[
         "Django",   # Django framework
         "djangorestframework", # Enabling more feature for Django (ex: serialization) - not used
+        "django-redis",
         "psycopg2", # Postgres SQL lib
         "uwsgi",    # Web Server Gateway Interface library
     ],
