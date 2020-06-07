@@ -21,12 +21,13 @@ start-django: start-db
 			cd src; \
 			python3 manage.py runserver;"
 
-# Step 4 - production
+# Step 4 - production (In example nginx used as web-server+load-balancer between ports 8001/8002)
 start-nginx:  start-db
 	sudo docker start nginx
 	bash -c "source venv/bin/activate; \
 			cd src; \
-			uwsgi --socket :8001 --module project.wsgi;"
+			uwsgi --socket :8001 --module project.wsgi & \
+			uwsgi --socket :8002 --module project.wsgi;" # refering to path src/project/wsgi.py 
 
 ### Postgres DB
 
