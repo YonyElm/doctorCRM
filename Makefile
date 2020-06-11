@@ -36,7 +36,7 @@ start-db:
 	sudo docker stop nginx
 
 db-cli:
-	psql -h localhost -p 5000 -U user -d doctorCRM
+	psql -h localhost -p 5432 -U user -d doctorCRM
 
 save-db-snapshot:
 	./etc/db-example/postgres-to-csv.sh
