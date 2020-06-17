@@ -29,3 +29,32 @@ services:
     - ./src/app/static:/app/static/
     - ./src/nginx.conf:/etc/nginx/nginx.conf
     - ./venv/lib/python3.5/site-packages/django/contrib/admin/static/admin/:/app/static/admin/
+
+#============================
+# Metrics
+#============================
+
+  post_exporter:
+    image: wrouesnel/postgres_exporter:latest
+    container_name: exporter
+    # network_mode: host
+    ports:
+      - 9187:9187
+    environment: 
+      - DATA_SOURCE_NAME=postgresql://user:123456789@postgres_db:5432/doctorCRM?sslmode=disable
+      - DATA_SOURCE_USER=user
+    depends_on: 
+      - postgres_db
+
+  grafana:
+    image: grafana/grafana:7.0.3
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    depends_on: 
+      - post_exporter
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    
+volumes:
+  grafana-storage: 
