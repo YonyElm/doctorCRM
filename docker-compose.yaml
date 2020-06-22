@@ -1,31 +1,93 @@
-version: "3"
+version: "3.2"
 services:
-  postgres_db:
-    image: postgres:12
-    container_name: postgres_db
-    environment:
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=123456789
-      - POSTGRES_DB=doctorCRM
+
+# ========= DB ===========
+
+  postgresql-1:
+    image: bitnami/postgresql-repmgr:12.3.0
+    container_name: postgresql-1
+    restart: always
     ports:
-      - "5432:5432"
+      - 5432
     volumes:
-      - ./postgres-db:/var/lib/postgresql/data
+      - postgresql-1-vol:/bitnami/postgresql
+    environment:
+      - POSTGRESQL_USERNAME=user
+      - POSTGRESQL_PASSWORD=123456789
+      - POSTGRESQL_DATABASE=doctorCRM
+      - REPMGR_PASSWORD=123456789
+      - REPMGR_PRIMARY_HOST=postgresql-1
+      - REPMGR_PRIMARY_PORT=5432
+      - REPMGR_PARTNER_NODES=postgresql-1,postgresql-2:5432
+      - REPMGR_NODE_NAME=postgresql-1
+      - REPMGR_NODE_NETWORK_NAME=postgresql-1
+      - REPMGR_PORT_NUMBER=5432
+    networks: 
+      main_bridge:
+        ipv4_address: 172.0.0.10
+
+  postgresql-2:
+    image: bitnami/postgresql-repmgr:12.3.0
+    container_name: postgresql-2
+    restart: always
+    ports:
+      - 5432
+    volumes:
+      - postgresql-2-vol:/bitnami/postgresql
+    environment:
+      - POSTGRESQL_USERNAME=user
+      - POSTGRESQL_PASSWORD=123456789
+      - POSTGRESQL_DATABASE=doctorCRM
+      - REPMGR_PASSWORD=123456789
+      - REPMGR_PRIMARY_HOST=postgresql-1
+      - REPMGR_PRIMARY_PORT=5432
+      - REPMGR_PARTNER_NODES=postgresql-1,postgresql-2:5432
+      - REPMGR_NODE_NAME=postgresql-2
+      - REPMGR_NODE_NETWORK_NAME=postgresql-2
+      - REPMGR_PORT_NUMBER=5432
+    networks: 
+      main_bridge:
+        ipv4_address: 172.0.0.11
+
+# ============================
 
   # Redis chache
   # Use `redis-cli --bigkeys` to seecached items
   redis:
     image: redis:6.0.4
     container_name: redis
+    restart: always
     ports:
       - "6379:6379"
+    networks: 
+      main_bridge:
+        ipv4_address: 172.0.0.20
 
   # Not used during development
   nginx:
     image: nginx:1.17
     container_name: nginx
+    restart: always
     network_mode: host
     volumes:
-    - ./src/app/static:/app/static/
-    - ./src/nginx.conf:/etc/nginx/nginx.conf
-    - ./venv/lib/python3.5/site-packages/django/contrib/admin/static/admin/:/app/static/admin/
+      - ./src/app/static:/app/static/
+      - ./src/nginx.conf:/etc/nginx/nginx.conf
+      - ./venv/lib/python3.5/site-packages/django/contrib/admin/static/admin/:/app/static/admin/
+
+# ======= Networks =========
+
+networks: 
+  main_bridge:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.0.0.0/24
+
+# ========== Volumes ========
+
+volumes: 
+  postgresql-1-vol:
+    driver: local
+  postgresql-2-vol:
+    driver: local
