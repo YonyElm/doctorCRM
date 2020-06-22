@@ -80,7 +80,7 @@ DATABASES = {
         'NAME': 'doctorCRM',
         'USER': 'user',
         'PASSWORD': '123456789',
-        'HOST': '127.0.0.1',
+        'HOST': '172.0.0.10',
         'PORT': '5432',
     }
 }

@@ -3,7 +3,7 @@ install-requirements:
 	sudo apt install -y python3-pip python3-dev libpq-dev
 	# sudo apt install -y nginx postgresql-10
 	sudo python3 -m pip install virtualenv
-
+	
 # Step 2
 build-workdir:
 	virtualenv venv --python /usr/bin/python3
@@ -17,6 +17,7 @@ django-commit:
 
 # Step 4 - development
 start-django: start-db
+	sleep 10
 	bash -c "source venv/bin/activate; \
 			cd src; \
 			python3 manage.py runserver;"
@@ -24,6 +25,7 @@ start-django: start-db
 # Step 4 - production (In example nginx used as web-server+load-balancer between ports 8001/8002)
 start-nginx:  start-db
 	sudo docker start nginx
+	sleep 10
 	bash -c "source venv/bin/activate; \
 			cd src; \
 			uwsgi --socket :8001 --module project.wsgi & \
@@ -36,7 +38,7 @@ start-db:
 	sudo docker stop nginx
 
 db-cli:
-	psql -h localhost -p 5432 -U user -d doctorCRM
+	psql -h 172.0.0.10 -p 5432 -U user -d doctorCRM
 
 save-db-snapshot:
 	./etc/db-example/postgres-to-csv.sh
