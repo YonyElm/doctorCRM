@@ -1,17 +1,55 @@
-version: "3"
+version: "3.2"
 services:
   postgres_db:
     image: postgres:12
     container_name: postgres_db
     environment:
+      # Basic ENV
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=123456789
       - POSTGRES_DB=doctorCRM
+      # Easing on replication process by using not deafult location 
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      # Replication Parameters
+      - REPLICA_POSTGRES_USER=repuser
+      - REPLICA_POSTGRES_PASSWORD=repuserpass
+      - REPLICATE_TO=postgres_db2
+      - REPLICA_NAME=r1
+      - SYNCHRONOUS_COMMIT=off
     ports:
       - "5432:5432"
     volumes:
-      - ./postgres-db:/var/lib/postgresql/data
+      # - ./postgres-db:/var/lib/postgresql/data
+      # Load balancer configuration
+      - ./src/postgres_config.sh:/docker-entrypoint-initdb.d/postgres_config.sh
+    networks: 
+      main_bridge:
+        ipv4_address: 172.0.0.10
 
+  postgres_db2:
+    image: postgres:12
+    container_name: postgres_db2
+    environment:
+      - POSTGRES_USER=repuser
+      - POSTGRES_PASSWORD=repuserpass
+      # Easing on replication process by using not deafult location
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      # Replication Parameters
+      - MASTER_DB_NAME=doctorCRM
+      - REPLICA_NAME=r1
+      - REPLICATE_FROM=postgres_db # Container name for netwrok connection
+    ports:
+      - "5433:5432"
+    volumes:
+      # - ./postgres-db2:/var/lib/postgresql/data
+      # Load balancer configuration
+      - ./src/postgres_config.sh:/docker-entrypoint-initdb.d/postgres_config.sh
+    networks: 
+      main_bridge:
+        ipv4_address: 172.0.0.11
+    depends_on:
+      - postgres_db
+      
   # Redis chache
   # Use `redis-cli --bigkeys` to seecached items
   redis:
@@ -19,6 +57,9 @@ services:
     container_name: redis
     ports:
       - "6379:6379"
+    networks: 
+      main_bridge:
+        ipv4_address: 172.0.0.20
 
   # Not used during development
   nginx:
@@ -29,3 +70,13 @@ services:
     - ./src/app/static:/app/static/
     - ./src/nginx.conf:/etc/nginx/nginx.conf
     - ./venv/lib/python3.5/site-packages/django/contrib/admin/static/admin/:/app/static/admin/
+
+# ======= Networks =========
+
+networks: 
+  main_bridge:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.0.0.0/24
