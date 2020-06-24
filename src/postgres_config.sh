@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Configuration for Streaming Replication
+# This file will run only once when Postgres is being initiated
+# Once Server is up, this script is being skipped
+
 # CONFIGURE PRIMARY DATABASE
 if [[ -z $REPLICATE_FROM ]]; then
 
@@ -17,8 +21,8 @@ EOF
     #( SYNCHRONOUS_COMMIT always off now)
     # Add synchronous standby names if we're in one of the synchronous commit modes
     if [[ "${SYNCHRONOUS_COMMIT}" =~ ^(on|remote_write|remote_apply)$ ]]; then
-    cat >> ${PGDATA}/postgresql.conf <<EOF
-    synchronous_standby_names = '1 (${REPLICA_NAME})'
+        cat >> ${PGDATA}/postgresql.conf <<EOF
+        synchronous_standby_names = '1 (${REPLICA_NAME})'
 EOF
     fi
 
@@ -38,8 +42,10 @@ EOF
     pg_ctl -D ${PGDATA} -m fast -w restart
     psql -U ${POSTGRES_USER} -d ${POSTGRES_DB} -c "SELECT * FROM pg_create_physical_replication_slot('${REPLICA_NAME}_slot');"
 
-# CONFIGURE REPLICA DATABASE
-else
+fi
+
+# CONFIGURE REPLICA DATABASE, Run only on the first time DB starts 
+if [[ -z $REPLICATE_TO ]]; then
 
     # Stop postgres instance and clear out PGDATA
     pg_ctl -D ${PGDATA} -m fast -w stop
@@ -62,16 +68,18 @@ EOF
     done
 
     # Remove pg pass file -- it is not needed after backup is restored
-    rm ~/.pgpass.conf
+    # rm ~/.pgpass.conf
 
-    # Create the recovery.conf file so the backup knows to start in recovery mode
-    cat > ${PGDATA}/standby.signal <<EOF
-    standby_mode = on
-    primary_conninfo = 'host=${REPLICATE_FROM} port=5432 user=${POSTGRES_USER} password=${POSTGRES_PASSWORD} application_name=${REPLICA_NAME}'
-    primary_slot_name = '${REPLICA_NAME}_slot'
-EOF
+    # Create the recovery.conf file so the backup knows to start in recovery mode (Postgres11 and below)
+    # cat > ${PGDATA}/recovery.conf <<EOF
+    # standby_mode = on
+    # primary_conninfo = 'host=${REPLICATE_FROM} port=5432 user=${POSTGRES_USER} password=${POSTGRES_PASSWORD} application_name=${REPLICA_NAME}'
+    # primary_slot_name = '${REPLICA_NAME}_slot'
+    # EOF
+    touch ${PGDATA}/standby.signal
 
     # Ensure proper permissions on recovery.conf
+    # chmod 0600 ${PGDATA}/recovery.conf
     #chown ${POSTGRES_USER}:${POSTGRES_PASSWORD} ${PGDATA}/standby.signal
     chmod 0600 ${PGDATA}/standby.signal
 

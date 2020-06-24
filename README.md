@@ -15,12 +15,12 @@ Dr.CRM is patient management sample, helping you following up with treatments gi
     * `source venv/bin/activate`
     * `make start-db`
     * `python src/manage.py migrate`
-1. Start application:
-    * `make start-django`
 1. Create a Django admin user for the website:
     * `python src/manage.py createsuperuser`
-1. Load DB example to get things going faster
+1. Load DB example to get things going faster (can be skipped):
     * `make load-example-db`
+1. Start application:
+    * `make start-django`
 1. Open the browser with address `localhost:8000`
 
 ## Decision making

@@ -13,13 +13,13 @@ services:
       # Replication Parameters
       - REPLICA_POSTGRES_USER=repuser
       - REPLICA_POSTGRES_PASSWORD=repuserpass
-      - REPLICATE_TO=postgres_db2
+      - REPLICATE_TO=postgres_db2  # Container name for netwrok connection
       - REPLICA_NAME=r1
       - SYNCHRONOUS_COMMIT=off
     ports:
       - "5432:5432"
     volumes:
-      # - ./postgres-db:/var/lib/postgresql/data
+      - postgres_db_vol:/var/lib/postgresql/data
       # Load balancer configuration
       - ./src/postgres_config.sh:/docker-entrypoint-initdb.d/postgres_config.sh
     networks: 
@@ -41,7 +41,7 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      # - ./postgres-db2:/var/lib/postgresql/data
+      - postgres_db2_vol:/var/lib/postgresql/data
       # Load balancer configuration
       - ./src/postgres_config.sh:/docker-entrypoint-initdb.d/postgres_config.sh
     networks: 
@@ -80,3 +80,9 @@ networks:
       driver: default
       config:
         - subnet: 172.0.0.0/24
+
+# ========== Volumes ========
+
+volumes: 
+  postgres_db_vol:
+  postgres_db2_vol:
