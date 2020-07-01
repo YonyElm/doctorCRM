@@ -3,6 +3,7 @@ install-requirements:
 	sudo apt install -y python3-pip python3-dev libpq-dev
 	# sudo apt install -y nginx postgresql-10
 	sudo python3 -m pip install virtualenv
+	sudo docker build -f ./etc/db-repmgr/repmgr.dockerfile ./etc/db-repmgr/ -t techye/repmgr
 
 # Step 2
 build-workdir:
@@ -38,7 +39,7 @@ start-db:
 	sudo docker stop nginx
 
 db-cli:
-	psql -h localhost -p 5432 -U user -d doctorCRM
+	psql -h 172.0.0.10 -p 5432 -U user -d doctorCRM
 
 save-db-snapshot:
 	./etc/db-example/postgres-to-csv.sh

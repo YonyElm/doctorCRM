@@ -11,11 +11,13 @@ if [[ -z $REPLICATE_FROM ]]; then
 
     # Add replication settings to primary postgres conf (happens on replica also)
     cat >> ${PGDATA}/postgresql.conf <<EOF
-    listen_addresses= '*'
-    wal_level = replica
-    max_wal_senders = 2
-    max_replication_slots = 2
-    synchronous_commit = ${SYNCHRONOUS_COMMIT}
+    max_wal_senders = 10
+    max_replication_slots = 10
+    wal_level = 'hot_standby'
+    hot_standby = on
+    archive_mode = on
+    archive_command = '/bin/true'
+    shared_preload_libraries = 'repmgr'
 EOF
 
     #( SYNCHRONOUS_COMMIT always off now)
@@ -35,7 +37,9 @@ EOF
 
     # host     replication     repuser   172.19.0.3/32       scram-sha-256
     cat >> ${PGDATA}/pg_hba.conf <<EOF
-    host     replication     ${REPLICA_POSTGRES_USER}   ${REPLICATION_SUBNET}       scram-sha-256
+    local    ${POSTGRES_DB}     ${REPLICA_POSTGRES_USER}                    trust
+    host     ${POSTGRES_DB}     ${REPLICA_POSTGRES_USER}   127.0.0.1/32     trust
+    host     ${POSTGRES_DB}     ${REPLICA_POSTGRES_USER}   172.0.0.0/24    trust
 EOF
 
     # Restart postgres and add replication slot

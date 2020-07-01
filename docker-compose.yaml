@@ -1,5 +1,8 @@
 version: "3.2"
 services:
+
+# ========= DB ===========
+
   postgres_db:
     image: postgres:12
     container_name: postgres_db
@@ -16,10 +19,11 @@ services:
       - REPLICATE_TO=postgres_db2  # Container name for netwrok connection
       - REPLICA_NAME=r1
       - SYNCHRONOUS_COMMIT=off
-    ports:
-      - "5432:5432"
+    #ports:
+    #  - "5432:5432"
     volumes:
       - postgres_db_vol:/var/lib/postgresql/data
+      - ./test.conf:/repmgr-primary.conf
       # Load balancer configuration
       - ./src/postgres_config.sh:/docker-entrypoint-initdb.d/postgres_config.sh
     networks: 
@@ -38,18 +42,43 @@ services:
       - MASTER_DB_NAME=doctorCRM
       - REPLICA_NAME=r1
       - REPLICATE_FROM=postgres_db # Container name for netwrok connection
-    ports:
-      - "5433:5432"
+    #ports:
+    #  - "5433:5432"
     volumes:
       - postgres_db2_vol:/var/lib/postgresql/data
       # Load balancer configuration
-      - ./src/postgres_config.sh:/docker-entrypoint-initdb.d/postgres_config.sh
+      #- ./src/postgres_config.sh:/docker-entrypoint-initdb.d/postgres_config.sh
     networks: 
       main_bridge:
         ipv4_address: 172.0.0.11
     depends_on:
       - postgres_db
-      
+
+  postgres_repmgr:
+    image: techye/repmgr
+    container_name: postgres_repmgr
+    # entrypoint: sleep 9999
+    environment:
+      - PRIMARY_NODE_URL=postgres_db
+      - PRIMARY_NODE_USERNAME=user
+      - PRIMARY_NODE_PASSWORD=123456789
+      - MASTER_DB_NAME=doctorCRM
+      - PRIMARY_PGDATA=/var/lib/postgresql/data/pgdata
+      #
+      - STANDBY_NODE_URL=postgres_db2
+      - STANDBY_NODE_USERNAME=repuser
+      - STANDBY_NODE_PASSWORD=repuser
+      - STANDBY_DB_NAME=doctorCRM
+      - STANDBY_PGDATA=/var/lib/postgresql/data/pgdata
+    networks: 
+      main_bridge:
+        ipv4_address: 172.0.0.12
+    depends_on:
+      - postgres_db
+      - postgres_db2
+
+# ============================
+
   # Redis chache
   # Use `redis-cli --bigkeys` to seecached items
   redis:
