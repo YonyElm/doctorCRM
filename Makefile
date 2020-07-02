@@ -17,7 +17,7 @@ django-commit:
 
 # Step 4 - development
 start-django: start-db
-	sleep 10
+	sleep 20
 	bash -c "source venv/bin/activate; \
 			cd src; \
 			python3 manage.py runserver;"
@@ -25,7 +25,7 @@ start-django: start-db
 # Step 4 - production (In example nginx used as web-server+load-balancer between ports 8001/8002)
 start-nginx:  start-db
 	sudo docker start nginx
-	sleep 10
+	sleep 20
 	bash -c "source venv/bin/activate; \
 			cd src; \
 			uwsgi --socket :8001 --module project.wsgi & \

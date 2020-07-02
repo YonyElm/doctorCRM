@@ -82,9 +82,18 @@ DATABASES = {
         'PASSWORD': '123456789',
         'HOST': '172.0.0.10',
         'PORT': '5432',
+    },
+    'standby1': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'doctorCRM',
+        'USER': 'user',
+        'PASSWORD': '123456789',
+        'HOST': '172.0.0.11',
+        'PORT': '5432',
     }
 }
 
+DATABASE_ROUTERS = ['project.router.ModelDatabaseRouter']
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -125,7 +134,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Caching Capabilities (with Redis)
-
+# Helps with HA (High Availability) and reducing load by caching old/frequesnt requests
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
