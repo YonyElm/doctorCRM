@@ -48,6 +48,8 @@ services:
     networks: 
       main_bridge:
         ipv4_address: 172.0.0.11
+    depends_on: 
+      - postgresql-1
 
 # ============================
 
